@@ -42,7 +42,35 @@ final class RequestHandler extends AbstractHandler
      */
     private function handleNextFieldCreation(RequestFile $requestFile, array $request): void
     {
+        while (true) {
+            $isFirstField = true;
 
+            $newField = $this->io->confirm(
+                RequestFile::getNewFieldQuestion($isFirstField),
+                true
+            );
+
+            $isFirstField = false;
+
+            if (is_null($newField)) {
+                break;
+            }
+
+            // $this->creator->addNewFieldToRequest($newField, $requestFile);
+            
+            $manipulator->addClassProperty(
+                mapping: $newField,
+                withConstructorPropertyPromotion: true
+            );
+
+            $currentFields[] = $newField->propertyName;
+            
+            $this->dumpFile(
+                $requestFile->getTargetPath(), 
+                $manipulator->getSourceCode(), 
+                $this->io
+            );
+        }
     }
 
     /**
@@ -55,7 +83,7 @@ final class RequestHandler extends AbstractHandler
     private function old_handleNextFieldCreation(RequestFile $requestFile, array $request): void
     {
         $isFirstField = true;
-        
+
         $currentFields = $this->getPropertyNames($requestFile->getFullClassName());
         
         $domainEntityDirectoryPath = sprintf(

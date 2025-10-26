@@ -62,4 +62,13 @@ final class RequestFile extends ClassFile
             $useCaseName
         );
     }
+
+    public static function getNewFieldQuestion(bool $isFirstField = false): string
+    {
+        if ($isFirstField) {
+            return 'New property name (press <return> to stop adding fields)';
+        }
+
+        return 'Add another property? Enter the property name (or press <return> to stop adding fields)';
+    }
 }
