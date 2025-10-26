@@ -19,14 +19,15 @@ final class ProxyClassSourceManipulator
             $reflectionClass = new ReflectionClass(ClassSourceManipulator::class);
             
             $reflectionMethod = $reflectionClass->getMethod($name);
-
-            if (!$reflectionMethod->isPublic()) {
+            $isPublicMethod = $reflectionMethod->isPublic();    
+            
+            if (!$isPublicMethod) {
                 $reflectionMethod->setAccessible(true);
             }
 
             $reflectionMethod->invoke($this->classSourceManipulator, $arguments);
 
-            if (!$reflectionMethod->isPublic()) {
+            if (!$isPublicMethod) {
                 $reflectionMethod->setAccessible(false);
             }
         } catch (ReflectionException $reflectionException) {
