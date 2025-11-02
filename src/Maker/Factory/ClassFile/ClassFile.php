@@ -52,7 +52,7 @@ abstract class ClassFile implements ClassFileInterface
 
     abstract public static function getUserQuestion(): string;
     
-    protected function addClassAttributes(ClassProperty $classProperty): void
+    public function addClassAttributes(ClassProperty $classProperty): void
     {
         $this->classAttributes[] = $classProperty;
     }

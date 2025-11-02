@@ -71,4 +71,9 @@ final class RequestFile extends ClassFile
 
         return 'Add another property? Enter the property name (or press <return> to stop adding fields)';
     }
+
+    public static function getNullableNewFieldQuestion(): string
+    {
+        return 'Can this field be null (nullable)';
+    }
 }
