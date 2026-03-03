@@ -1,14 +1,15 @@
 # Hexagonal Maker Bundle
 
-The Hexagonal Maker Bundle is a code generator, for Symfony, who automise the use case creation process for the Hexagonal Architecture. It's use the Symfony's Maker Bundle. 
+The Hexagonal Maker Bundle is a code generator for Symfony that automates the use case creation process for Hexagonal Architecture. It extends Symfony's Maker Bundle to generate properly structured use cases, requests, responses, and presenter interfaces.
 
-## ⚙️Install
-Add the bundle with composer 
+## ⚙️ Installation
+
+Add the bundle with composer:
 ``` bash
 composer require --dev adrienlbt/hexagonal-maker-bundle
-``` 
+```
 
-If Symfony Flex doesn't add automatically the bundle, active it manually: 
+If Symfony Flex doesn't add the bundle automatically, activate it manually:
 ``` php
 // config/bundles.php
 return [
@@ -17,44 +18,68 @@ return [
 ];
 ```
 
-## ⚙️Configure
-If Symfony Flew doesn't create config file automaticallly, create it manually: 
+**That's it!** The bundle is now ready to use. No additional configuration steps are required.
+
+## ⚙️ Configuration (Optional)
+
+You can customize the default paths for your hexagonal architecture layers:
+
 ``` yaml
-# config/packages/hexagonal_maker_bundle.yaml
+# config/packages/hexagonal_maker.yaml
 hexagonal_maker:
-  application_path: 'Application'
-  domain_path: 'Domain'
-  infrastructure_path: 'Infrastructure'
+  application_path: 'Application'  # Default
+  domain_path: 'Domain'            # Default
+  infrastructure_path: 'Infrastructure'  # Default
 ```
 
-### Override namespace 
-Actually (and for this first version), we duplicate the code of Symfony's Maker Bundle. For use our command we need to override the namespace for use our implementation of generator. For this you can run the following command:
-``` bash
-bin/console make:hexagonal:dump-autoload
-```
-
-The result of this command, add namespace overiding in your composer.json file.
-```json
-// composer.json
-{
-    ...,
-    "autoload": {
-        "psr-4": {
-            ...,
-            "Symfony\\Bundle\\MakerBundle\\": "vendor/adrienlbt/hexagonal-maker-bundle/src/Maker/Decorator/"
-        }
-    }
-}
-```
-
-## Usage
+## 📖 Usage
 
 ### Create Use Case
-Run command like follow and follow instructions.
+Run the following command and follow the interactive prompts:
 
 ``` bash
 bin/console make:hexagonal:usecase
 ```
+
+This will generate:
+- **UseCase** class in `Domain\UseCase\{folder}\{Name}`
+- **Request** class in `Domain\Request\{folder}\{Name}Request`
+- **Response** class in `Domain\Response\{folder}\{Name}Response`
+- **PresenterInterface** in `Domain\API\{folder}\{Name}PresenterInterface`
+
+### Example
+
+``` bash
+bin/console make:hexagonal:usecase User CreateUser
+
+# This generates:
+# - Domain/UseCase/User/CreateUser.php
+# - Domain/Request/User/CreateUserRequest.php
+# - Domain/Response/User/CreateUserResponse.php
+# - Domain/API/User/CreateUserPresenterInterface.php
+```
+
+## 🏗️ Generated Structure
+
+The `make:hexagonal:usecase` command generates the following files:
+
+```
+src/
+├── Domain/
+│   ├── UseCase/{folder}/        # Use case implementations
+│   ├── Request/{folder}/        # Request DTOs
+│   ├── Response/{folder}/       # Response DTOs
+│   └── API/{folder}/            # Presenter interfaces
+```
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This bundle is released under the MIT License.
 
 
 

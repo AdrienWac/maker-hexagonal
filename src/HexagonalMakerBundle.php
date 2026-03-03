@@ -2,6 +2,7 @@
 
 namespace AdrienLbt\HexagonalMakerBundle;
 
+use AdrienLbt\HexagonalMakerBundle\DependencyInjection\HexagonalMakerCompilerPass;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
@@ -15,6 +16,14 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
  */
 class HexagonalMakerBundle extends AbstractBundle
 {
+    /**
+     * Register compiler pass to decorate the maker.generator service
+     */
+    public function build(ContainerBuilder $container): void
+    {
+        parent::build($container);
+        $container->addCompilerPass(new HexagonalMakerCompilerPass());
+    }
     /**
      * Créer "l'arbre" de configuration du bundle
      *
