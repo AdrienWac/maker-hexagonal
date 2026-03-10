@@ -27,15 +27,13 @@
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-phpunit": "^2.0",
         "rregeer/phpunit-coverage-check": "dev-master",
-        "squizlabs/php_codesniffer": "4.0.x-dev",
+        "squizlabs/php_codesniffer": "^3.7|^4.0",
         "symfony/phpunit-bridge": "^6.4.1|^7.0",
         "symfony/maker-bundle": "^1.0@dev"
     },
     "autoload": {
         "psr-4": {
-            "AdrienLbt\\HexagonalMakerBundle\\": "src/",
-            "Symfony\\Bundle\\MakerBundle\\": "src/Maker/Decorator/",
-            "Symfony\\Bundle\\MakerBundle\\Test\\": "src/Maker/Decorator/Test/"
+            "AdrienLbt\\HexagonalMakerBundle\\": "src/"
         }
     },
     "autoload-dev": {
